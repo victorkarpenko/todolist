@@ -1,0 +1,33 @@
+*{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  outline: 0;
+  font-family:'Roboto', -apple-system, system-ui, sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo{
+  width: 750px;
+  height: 530px;
+  border: 1px solid #f1f1f1;
+  font-size: 14px;
+
+  &__sidebar{
+    background-color: #F4F6F8;
+    width: 200px;
+    height: 100%;
+    border-right: 1px solid #f1f1f1;
+    padding: 50px 20px;
+  }
+}
