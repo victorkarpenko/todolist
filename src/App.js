@@ -1,7 +1,9 @@
 import React from 'react';
-import Index from "./components/List";
+import List from "./components/List";
+import AddList from './components/AddList'
 
 import listIcon from "./assets/img/list.svg";
+import DB from './assets/db';
 
 const listItems = [
     {
@@ -26,19 +28,21 @@ const listItems2 = [
     }
 ];
 
-function App(props) {
+
+const App = () => {
     return (
         <div className="todo">
             <div className="todo__sidebar">
-                <Index items={listItems}/>
+                <List items={listItems}/>
+                <List items={listItems2} isRemovable/>
 
-                <Index items={listItems2}/>
+                <AddList colors={DB.colors} />
             </div>
             <div className="todo__tasks">
 
             </div>
         </div>
     );
-}
+};
 
 export default App;
