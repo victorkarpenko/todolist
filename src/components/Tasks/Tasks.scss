@@ -1,0 +1,93 @@
+.tasks{
+  &__title{
+    font-family: Montserrat,sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 39px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+
+    color: #64C4ED;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #F2F2F2;
+
+    &:hover{
+      .tasks__edit-title{
+        opacity: .2;
+
+        &:hover{
+          opacity: .6;
+        }
+
+      }
+    }
+  }
+
+  &__edit-title{
+    margin-left: 15px;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  &__items{
+    padding-top: 30px;
+  }
+
+  &__item{
+    display: flex;
+    margin-bottom: 21px;
+    align-items: center;
+  }
+
+  &__item-text{
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+
+    color: #000000;
+  }
+}
+
+.checkbox{
+  margin-right: 15px;
+
+
+  &__hidden{
+    display: none;
+
+    &:checked + .checkbox__label{
+      border-color: #4DD599;
+      background-color: #4DD599;
+
+      svg path{
+        stroke: white;
+      }
+    }
+  }
+
+  &__label{
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #E8E8E8;
+    background-color: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+
+    svg path{
+      stroke: transparent;
+    }
+
+    &:hover{
+      background-color: #E8E8E8;
+      svg path{
+        stroke: #b3b3b3;
+      }
+    }
+  }
+
+}

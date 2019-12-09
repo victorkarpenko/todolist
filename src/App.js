@@ -4,6 +4,7 @@ import AddList from './components/AddList'
 
 import listIcon from "./assets/img/list.svg";
 import DB from './assets/db';
+import Tasks from "./components/Tasks";
 
 const listItems = [
     {
@@ -40,7 +41,7 @@ const App = () => {
                 <AddList addListItem={addListItem} colors={DB.colors} />
             </div>
             <div className="todo__tasks">
-
+                <Tasks/>
             </div>
         </div>
     );

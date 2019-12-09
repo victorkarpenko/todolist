@@ -2,13 +2,11 @@
   margin-bottom: 25px;
 
   &__remove-btn{
-    position: absolute;
-    right: 7px;
-    top: 50%;
-    transform: translateY(-50%);
     opacity: 0;
-    cursor: pointer;
-    display: block;
+
+    &:hover{
+      opacity: .6;
+    }
   }
 
   li {
@@ -33,16 +31,21 @@
 
       .list__remove-btn{
         opacity: .4;
+
+        &:hover{
+          opacity: .8;
+        }
       }
     }
+  }
 
-    span{
-      display: block;
-      overflow: hidden;
-      white-space: nowrap;
-      -ms-text-overflow: ellipsis;
-      text-overflow: ellipsis;
-    }
+  &__text{
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    flex: 1;
   }
 
   .badge{

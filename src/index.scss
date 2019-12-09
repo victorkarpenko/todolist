@@ -23,12 +23,19 @@ body {
   border: 1px solid #f1f1f1;
   font-size: 14px;
 
+  display: flex;
+
   &__sidebar{
     background-color: #F4F6F8;
     width: 201px;
     height: 100%;
     border-right: 1px solid #f1f1f1;
     padding: 50px 20px;
+  }
+
+  &__tasks{
+    padding: 55px;
+    flex: 1;
   }
 }
 
