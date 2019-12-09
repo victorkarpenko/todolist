@@ -20,6 +20,11 @@ const App = () => {
         return item;
     }));
 
+    const removeItem = (itemId) =>{
+        const newList = lists.filter(i => i.id!==itemId);
+        setLists(newList)
+    };
+
    // debugger
 
     const addListItem = (newItem) =>{
@@ -30,7 +35,7 @@ const App = () => {
         <div className="todo">
             <div className="todo__sidebar">
                 <List items={listItems}/>
-                <List items={lists} isRemovable/>
+                <List removeItem={removeItem} items={lists} isRemovable/>
 
                 <AddList addListItem={addListItem} colors={DB.colors} />
             </div>

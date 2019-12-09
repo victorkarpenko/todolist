@@ -1,10 +1,21 @@
 .list {
   margin-bottom: 25px;
 
+  &__remove-btn{
+    position: absolute;
+    right: 7px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    cursor: pointer;
+    display: block;
+  }
+
   li {
     display: flex;
     align-items: center;
     line-height: 1;
+    position: relative;
 
     padding: 10px 12px;
     margin-bottom: 3px;
@@ -19,6 +30,10 @@
 
     &:hover{
       background-color: rgba(255,255,255,.5);
+
+      .list__remove-btn{
+        opacity: .4;
+      }
     }
 
     span{
@@ -27,16 +42,15 @@
       white-space: nowrap;
       -ms-text-overflow: ellipsis;
       text-overflow: ellipsis;
-
     }
   }
 
-  img,
   .badge{
     margin-right: 9px;
   }
 
-  img {
+  &__icon{
+    margin-right: 9px;
     opacity: .6;
   }
 
