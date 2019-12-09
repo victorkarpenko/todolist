@@ -1,5 +1,5 @@
 .list {
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 
   li {
     display: flex;
@@ -17,6 +17,18 @@
       border-radius: 4px;
     }
 
+    &:hover{
+      background-color: rgba(255,255,255,.5);
+    }
+
+    span{
+      display: block;
+      overflow: hidden;
+      white-space: nowrap;
+      -ms-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+
+    }
   }
 
   img,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import List from "./components/List";
 import AddList from './components/AddList'
 
@@ -12,31 +12,27 @@ const listItems = [
     }
 ];
 
-const listItems2 = [
-    {
-        color: 'green',
-        name: 'Покупки'
-    },
-    {
-        color: 'blue',
-        name: 'Фронтенд',
-        active: true
-    },
-    {
-        color: 'pink',
-        name: 'Фильмы и сериалы'
-    }
-];
-
 
 const App = () => {
+
+    const [lists, setLists] = useState(DB.lists.map(item => {
+        item.color=DB.colors.find(color => color.id===item.colorId).name;
+        return item;
+    }));
+
+   // debugger
+
+    const addListItem = (newItem) =>{
+      setLists([...lists, newItem]);
+    };
+
     return (
         <div className="todo">
             <div className="todo__sidebar">
                 <List items={listItems}/>
-                <List items={listItems2} isRemovable/>
+                <List items={lists} isRemovable/>
 
-                <AddList colors={DB.colors} />
+                <AddList addListItem={addListItem} colors={DB.colors} />
             </div>
             <div className="todo__tasks">
 
