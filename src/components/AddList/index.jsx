@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import List from "../List";
-import Badge from "../Badge";
+import React, {useEffect, useState} from 'react';
+import {Badge, List} from '../../components';
+import axios from 'axios';
 
 import './AddList.scss'
 import addIcon from "../../assets/img/add.svg";
@@ -16,11 +16,19 @@ const listItems3 = [
 ];
 
 const AddButtonList = ({addListItem, colors}) => {
-    let [visiblePopup, setVisiblePopup] = useState(false);
+    const [visiblePopup, setVisiblePopup] = useState(false);
 
-    let [activeColor, setActiveColor] = useState(colors[0].id);
+    const [activeColor, setActiveColor] = useState(null);
 
-    let [inputValue, setInputValue] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+
+    const [inputValue, setInputValue] = useState('');
+
+    useEffect(()=>{
+        if(colors){
+            setActiveColor(colors[0].id);
+        }
+    }, [colors]);
 
     const onClose = () =>{
         setVisiblePopup(false);
@@ -35,9 +43,14 @@ const AddButtonList = ({addListItem, colors}) => {
             return;
         }
 
-        const color = colors.find(color => color.id === activeColor).name;
-        addListItem({id: Math.random(), name: inputValue, color});
-        onClose()
+        setIsLoading(true);
+        const color = colors.find(color => color.id === activeColor);
+        axios.post('http://localhost:3001/lists', {name: inputValue, colorId:activeColor}).then(({data}) => {
+            addListItem({...data, color});
+            onClose();
+        }).finally(()=>{
+            setIsLoading(false);
+        });
     };
 
     return (
@@ -60,7 +73,7 @@ const AddButtonList = ({addListItem, colors}) => {
                             setActiveColor(color.id)
                         }} active={color.id === activeColor} color={color.name}/>)}
                     </div>
-                    <button type={'button'} className={'button'} onClick={addList}>Добавить</button>
+                    <button type={'button'} className={'button'} onClick={addList}>{isLoading ? 'Добавление...' : 'Добавить'}</button>
                 </div>
             }
         </div>
