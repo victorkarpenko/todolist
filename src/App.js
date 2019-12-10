@@ -1,10 +1,8 @@
-import React, {useState} from 'react';
-import List from "./components/List";
-import AddList from './components/AddList'
+import React, {useState, useEffect} from 'react';
+import {AddList, Tasks, List} from './components';
+import axios from 'axios';
 
 import listIcon from "./assets/img/list.svg";
-import DB from './assets/db';
-import Tasks from "./components/Tasks";
 
 const listItems = [
     {
@@ -13,17 +11,30 @@ const listItems = [
     }
 ];
 
-
 const App = () => {
+    const [lists, setLists] = useState(null);
+    const [colors, setColors] = useState(null);
+    const [activeList, setActiveList] = useState(null);
 
-    const [lists, setLists] = useState(DB.lists.map(item => {
-        item.color=DB.colors.find(color => color.id===item.colorId).name;
-        return item;
-    }));
+    useEffect(()=>{
+
+        axios.get('http://localhost:3001/lists?_expand=color&_embed=tasks').then(({data})=>{
+            setLists(data);
+            setActiveList(data[0]);
+        });
+
+        axios.get('http://localhost:3001/colors').then(({data})=>{
+            setColors(data);
+        });
+    }, []);
+
+
 
     const removeItem = (itemId) =>{
         const newList = lists.filter(i => i.id!==itemId);
-        setLists(newList)
+        axios.delete('http://localhost:3001/lists/' + itemId).then(({data})=>{
+            setLists(newList);
+        });
     };
 
    // debugger
@@ -32,16 +43,18 @@ const App = () => {
       setLists([...lists, newItem]);
     };
 
+
     return (
         <div className="todo">
             <div className="todo__sidebar">
                 <List items={listItems}/>
-                <List removeItem={removeItem} items={lists} isRemovable/>
 
-                <AddList addListItem={addListItem} colors={DB.colors} />
+                {lists ? <List toggleClick={(item)=>{setActiveList(item)}} removeItem={removeItem} items={lists} isRemovable/> : 'Waiting...'}
+
+                <AddList addListItem={addListItem} colors={colors} />
             </div>
             <div className="todo__tasks">
-                <Tasks/>
+                {activeList && <Tasks activeList={activeList}/> }
             </div>
         </div>
     );
