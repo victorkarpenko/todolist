@@ -7,13 +7,11 @@ import addIcon from "../../assets/img/add.svg";
 import closeIcon from '../../assets/img/close.svg';
 
 
-const listItems3 = [
-    {
-        className: 'list__add-btn',
-        icon: addIcon,
-        name: "Добавить список"
-    }
-];
+const listItem = {
+    className: 'list__add-btn',
+    icon: addIcon,
+    name: "Добавить список"
+};
 
 const AddButtonList = ({addListItem, colors}) => {
     const [visiblePopup, setVisiblePopup] = useState(false);
@@ -55,9 +53,16 @@ const AddButtonList = ({addListItem, colors}) => {
 
     return (
         <div className={'add-list'}>
-            <List items={listItems3} toggleClick={() => {
+
+            <ul className='list' onClick={() => {
                 setVisiblePopup(!visiblePopup)
-            }}/>
+            }}>
+                <li className={listItem.className}>
+                    <img className={'list__icon'} src={listItem.icon} alt=""/>
+                    <span className={'list__text'}>{listItem.name}</span>
+                </li>
+            </ul>
+
             {
                 visiblePopup && <div className="add-list__popup">
                     <img src={closeIcon} onClick={onClose} className={'add-list__popup-close'} alt=""/>

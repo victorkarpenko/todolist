@@ -2,7 +2,7 @@
   "lists": [
     {
       "id": 1,
-      "name": "Продажи",
+      "name": "Продажи и что-то",
       "colorId": 5
     },
     {
@@ -24,11 +24,6 @@
       "name": "Личное",
       "colorId": 1,
       "id": 5
-    },
-    {
-      "name": "sdfdsfds",
-      "colorId": 5,
-      "id": 6
     }
   ],
   "tasks": [

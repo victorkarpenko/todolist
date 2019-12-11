@@ -1,4 +1,5 @@
 .tasks{
+  height: 100%;
   &__title{
     font-family: Montserrat,sans-serif;
     font-style: normal;
@@ -23,6 +24,23 @@
 
       }
     }
+  }
+
+  &__center{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__empty{
+    font-family: Montserrat, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 39px;
+    color: #C9D1D3;
   }
 
   &__edit-title{

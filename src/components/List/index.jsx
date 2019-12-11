@@ -6,18 +6,12 @@ import closeIcon from '../../assets/img/remove.svg'
 import './list.scss';
 
 
-const List = ({removeItem, isRemovable, items, toggleClick}) => {
+const List = ({removeItem, isRemovable, items, toggleClick, onClickItem}) => {
     const [activeLink, setActiveLink] = useState(items[0].id ? items[0].id : false);
 
     const onLinkClick = (item) =>{
-
-        if(activeLink){
-            setActiveLink(item.id);
-            toggleClick(item);
-        } else{
-            toggleClick();
-        }
-
+        setActiveLink(item.id);
+        toggleClick(item);
     };
 
     const removeList = (id) => {
@@ -30,9 +24,9 @@ const List = ({removeItem, isRemovable, items, toggleClick}) => {
         <ul className='list'>
             {
                 items.map(i=>(
-                    <li className={classNames(i.className, {'active': activeLink===i.id} )} key={i.name} onClick={()=> onLinkClick(i)}>
+                    <li className={classNames(i.className, {'active': activeLink===i.id} )} key={i.name} onClick={onClickItem ? () => {onLinkClick(i)} : null}>
                         {!i.color ? <img className={'list__icon'} src={i.icon} alt=""/> : <Badge color={i.color.name}/>}
-                        <span className={'list__text'}>{i.name}</span>
+                        <span className={'list__text'}>{i.name} {i.tasks && !!i.tasks.length && `(${i.tasks.length})`}</span>
 
                         {isRemovable && <img src={closeIcon} onClick={()=>{removeList(i.id)}} className={'list__remove-btn'} alt=""/>}
                     </li>

@@ -16,45 +16,53 @@ const App = () => {
     const [colors, setColors] = useState(null);
     const [activeList, setActiveList] = useState(null);
 
-    useEffect(()=>{
+    useEffect(() => {
 
-        axios.get('http://localhost:3001/lists?_expand=color&_embed=tasks').then(({data})=>{
+        axios.get('http://localhost:3001/lists?_expand=color&_embed=tasks').then(({data}) => {
             setLists(data);
             setActiveList(data[0]);
         });
 
-        axios.get('http://localhost:3001/colors').then(({data})=>{
+        axios.get('http://localhost:3001/colors').then(({data}) => {
             setColors(data);
         });
     }, []);
 
-
-
-    const removeItem = (itemId) =>{
-        const newList = lists.filter(i => i.id!==itemId);
-        axios.delete('http://localhost:3001/lists/' + itemId).then(({data})=>{
+    const removeItem = (itemId) => {
+        const newList = lists.filter(i => i.id !== itemId);
+        axios.delete('http://localhost:3001/lists/' + itemId).then(({data}) => {
             setLists(newList);
         });
     };
 
-   // debugger
-
-    const addListItem = (newItem) =>{
-      setLists([...lists, newItem]);
+    const addListItem = (newItem) => {
+        setLists([...lists, newItem]);
     };
 
+    const onEditListTitle = (id, title) => {
+        const newLists = lists.map(l=>{
+            if(l.id === id){
+                l.name = title;
+            }
+            return l;
+        });
+
+        setLists(newLists);
+    };
 
     return (
         <div className="todo">
             <div className="todo__sidebar">
                 <List items={listItems}/>
 
-                {lists ? <List toggleClick={(item)=>{setActiveList(item)}} removeItem={removeItem} items={lists} isRemovable/> : 'Waiting...'}
+                {lists ? <List toggleClick={(item) => {
+                    setActiveList(item)
+                }} removeItem={removeItem} items={lists} isRemovable onClickItem={true}/> : 'Waiting...'}
 
-                <AddList addListItem={addListItem} colors={colors} />
+                <AddList addListItem={addListItem} colors={colors}/>
             </div>
             <div className="todo__tasks">
-                {activeList && <Tasks activeList={activeList}/> }
+                {activeList && <Tasks onEditTitle={onEditListTitle} activeList={activeList}/>}
             </div>
         </div>
     );
