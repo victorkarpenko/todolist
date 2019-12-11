@@ -1,8 +1,10 @@
 import React from 'react';
+import  axios from "axios";
 
 import editIcon from '../../assets/img/edit.svg';
 import './Tasks.scss'
-import  axios from "axios";
+import AddTaskForm from "./AddTaskForm";
+
 
 const Tasks = ({activeList, onEditTitle}) => {
 
@@ -55,6 +57,8 @@ const Tasks = ({activeList, onEditTitle}) => {
                                 ))
                             }
                         </div>
+
+                      <AddTaskForm/>
                     </>
             }
         </div>

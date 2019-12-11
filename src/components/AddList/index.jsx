@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Badge, List} from '../../components';
+import {Badge} from '../../components';
 import axios from 'axios';
 
 import './AddList.scss'

@@ -74,6 +74,32 @@
       flex: 1;
     }
   }
+
+  &__form-new{
+    color: #B4B4B4;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    img{
+      margin-right: 19px;
+      opacity: .3;
+      width: 16px;
+      margin-left: 2px;
+    }
+
+    &:hover{
+      color: #838383;
+
+      img{
+        opacity: .5;
+      }
+    }
+  }
+
 }
 
 .checkbox{
