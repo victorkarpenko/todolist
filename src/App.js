@@ -16,12 +16,16 @@ const App = () => {
     const [colors, setColors] = useState(null);
     const [activeList, setActiveList] = useState(null);
 
+    const getTasks = () => {
+        return axios.get('http://localhost:3001/lists?_expand=color&_embed=tasks').then(({data}) => {
+            setLists(data);
+            return data;
+        });
+    };
+
     useEffect(() => {
 
-        axios.get('http://localhost:3001/lists?_expand=color&_embed=tasks').then(({data}) => {
-            setLists(data);
-            setActiveList(data[0]);
-        });
+        getTasks().then((data)=> setActiveList(data[0]));
 
         axios.get('http://localhost:3001/colors').then(({data}) => {
             setColors(data);
@@ -37,7 +41,7 @@ const App = () => {
     };
 
     const addListItem = (newItem) => {
-        setLists([...lists, newItem]);
+        setLists([...lists, {...newItem, tasks:[]}]);
     };
 
     const onEditListTitle = (id, title) => {
@@ -52,8 +56,14 @@ const App = () => {
     };
 
     const onAddTaskToList = (task) =>{
-        debugger;
-        setActiveList({...activeList, tasks:[...activeList.tasks, task]});
+        const newLists = lists.map(item => {
+            if(item.id === activeList.id){
+                item.tasks = [...item.tasks, task];
+            }
+
+            return item
+        });
+       setLists(newLists);
     };
 
     return (

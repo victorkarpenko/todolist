@@ -15,11 +15,8 @@ const listItem = {
 
 const AddButtonList = ({addListItem, colors}) => {
     const [visiblePopup, setVisiblePopup] = useState(false);
-
     const [activeColor, setActiveColor] = useState(null);
-
     const [isLoading, setIsLoading] = useState(false);
-
     const [inputValue, setInputValue] = useState('');
 
     useEffect(()=>{
