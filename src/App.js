@@ -26,6 +26,7 @@ const App = () => {
         axios.get('http://localhost:3001/colors').then(({data}) => {
             setColors(data);
         });
+
     }, []);
 
     const removeItem = (itemId) => {
@@ -50,6 +51,11 @@ const App = () => {
         setLists(newLists);
     };
 
+    const onAddTaskToList = (task) =>{
+        debugger;
+        setActiveList({...activeList, tasks:[...activeList.tasks, task]});
+    };
+
     return (
         <div className="todo">
             <div className="todo__sidebar">
@@ -62,7 +68,7 @@ const App = () => {
                 <AddList addListItem={addListItem} colors={colors}/>
             </div>
             <div className="todo__tasks">
-                {activeList && <Tasks onEditTitle={onEditListTitle} activeList={activeList}/>}
+                {activeList && <Tasks onEditTitle={onEditListTitle} addTask={onAddTaskToList} activeList={activeList}/>}
             </div>
         </div>
     );

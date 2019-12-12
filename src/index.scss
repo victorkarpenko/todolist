@@ -79,4 +79,17 @@ body {
   &:active{
     background: #44bf89;
   }
+
+  &--gray{
+    background: #F4F6F8;
+    color: #9C9C9C;
+
+    &:hover{
+      background: #eff1f3;
+    }
+
+    &:active{
+      background: #eaecee;
+    }
+  }
 }

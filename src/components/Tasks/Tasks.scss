@@ -75,6 +75,17 @@
     }
   }
 
+  &__form{
+    *{
+      font-size: 14px;
+    }
+
+    .field{
+      min-height: 38px;
+      padding-left: 15px;
+    }
+  }
+
   &__form-new{
     color: #B4B4B4;
     font-weight: 500;
@@ -97,6 +108,16 @@
       img{
         opacity: .5;
       }
+    }
+  }
+
+  &__button-wrp{
+    margin-top: 16px;
+
+    button{
+      margin-right: 10px;
+      padding-left: 15px;
+      padding-right: 15px;
     }
   }
 

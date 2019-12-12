@@ -1,12 +1,12 @@
 import React from 'react';
 import  axios from "axios";
+import AddTaskForm from "./AddTaskForm";
 
 import editIcon from '../../assets/img/edit.svg';
 import './Tasks.scss'
-import AddTaskForm from "./AddTaskForm";
 
 
-const Tasks = ({activeList, onEditTitle}) => {
+const Tasks = ({activeList, onEditTitle, addTask}) => {
 
     const editTitle = () => {
         const newTitle = window.prompt('Название списка ', activeList.name);
@@ -58,7 +58,7 @@ const Tasks = ({activeList, onEditTitle}) => {
                             }
                         </div>
 
-                      <AddTaskForm/>
+                      <AddTaskForm addTask={addTask} activeListId={activeList.id}/>
                     </>
             }
         </div>
