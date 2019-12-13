@@ -17,7 +17,7 @@
     },
     {
       "id": 4,
-      "name": "Книги 23",
+      "name": "Книги",
       "colorId": 2
     },
     {
@@ -26,8 +26,8 @@
       "id": 5
     },
     {
-      "name": "test list",
-      "colorId": 4,
+      "name": "MyTasks",
+      "colorId": 6,
       "id": 6
     }
   ],
@@ -145,6 +145,18 @@
       "text": "sdfsdf",
       "completed": false,
       "id": 19
+    },
+    {
+      "listId": 1,
+      "text": "fdgdfgdf",
+      "completed": false,
+      "id": 20
+    },
+    {
+      "listId": 6,
+      "text": "Audits",
+      "completed": false,
+      "id": 21
     }
   ],
   "colors": [

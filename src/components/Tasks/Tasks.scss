@@ -56,6 +56,41 @@
     display: flex;
     margin-bottom: 21px;
     align-items: center;
+
+    &:hover &-actions {
+      opacity: 1;
+    }
+
+    &-actions {
+      display: flex;
+      opacity: 0;
+      transition: opacity 0.15s ease-in-out;
+
+      div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        background-color: lighten(#f4f6f8, 2%);
+        border-radius: 6px;
+        margin-left: 5px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: darken(#f4f6f8, 2%);
+          svg {
+            opacity: 0.9;
+          }
+        }
+
+        svg {
+          width: 11px;
+          height: 11px;
+          opacity: 0.4;
+        }
+      }
+    }
   }
 
   &__item-text{
@@ -64,14 +99,6 @@
     line-height: 19px;
     flex: 1;
     color: #000000;
-
-    input{
-      background-color: transparent;
-      border: 0;
-      font: inherit;
-      width: 100%;
-      flex: 1;
-    }
   }
 
   &__form{

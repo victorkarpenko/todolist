@@ -14,11 +14,6 @@ const List = ({
       activeItem
     }) => {
 
-   /* const onLinkClick = (item) => {
-        setActiveLink(item.id);
-        toggleClick(item);
-    };*/
-
     const removeList = (id) => {
         if (window.confirm('Вы действительно хотите удалить список?')) {
             removeItem(id);
@@ -40,7 +35,8 @@ const List = ({
                         <span
                             className={'list__text'}>{i.name} {i.tasks && !!i.tasks.length && `(${i.tasks.length})`}</span>
 
-                        {isRemovable && <img src={closeIcon} onClick={() => {
+                        {isRemovable && <img src={closeIcon} onClick={(e) => {
+                            e.stopPropagation();
                             removeList(i.id)
                         }} className={'list__remove-btn'} alt=""/>}
                     </li>

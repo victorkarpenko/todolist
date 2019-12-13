@@ -26,6 +26,14 @@ const App = () => {
         });
     }, []);
 
+    useEffect(()=> {
+        const listId = +history.location.pathname.split('lists/')[1];
+        if(lists){
+            const list = lists.find(list => list.id === listId);
+            setActiveItem(list)
+        }
+    }, [lists, history.location.pathname]);
+
     const removeItem = (itemId) => {
         const newList = lists.filter(i => i.id !== itemId);
         axios.delete('http://localhost:3001/lists/' + itemId).then(({data}) => {
@@ -51,7 +59,7 @@ const App = () => {
     const onAddTaskToList = (task) =>{
 
         const newLists = lists.map(item => {
-            debugger
+
             if(item.id === task.listId){
                 item.tasks = [...item.tasks, task];
             }
@@ -82,7 +90,9 @@ const App = () => {
                         ))
                     }
                 </Route>
-{/*                { activeList && <Tasks onEditTitle={onEditListTitle} addTask={onAddTaskToList} activeList={activeList}/> }*/}
+                <Route path={"/lists/:id"}>
+                    { activeItem && <Tasks onEditTitle={onEditListTitle} addTask={onAddTaskToList} activeList={activeItem}/> }
+                </Route>
             </div>
         </div>
     );
