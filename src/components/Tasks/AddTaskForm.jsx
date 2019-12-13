@@ -23,7 +23,7 @@ const AddTaskForm = ({addTask, activeListId}) => {
                 completed: false
             };
 
-            axios.post(`http://localhost:3001/tasks`, task).then(data => {
+            axios.post(`http://localhost:3001/tasks`, task).then((data) => {
                 addTask(data.data);
                 closeInput();
             }).finally(() => {

@@ -6,7 +6,7 @@ import editIcon from '../../assets/img/edit.svg';
 import './Tasks.scss'
 
 
-const Tasks = ({activeList, onEditTitle, addTask}) => {
+const Tasks = ({activeList, onEditTitle, addTask, withoutEmpty}) => {
 
     const editTitle = () => {
         const newTitle = window.prompt('Название списка ', activeList.name);
@@ -23,7 +23,7 @@ const Tasks = ({activeList, onEditTitle, addTask}) => {
 
     return (
         <div className="tasks">
-            <h1 className={"tasks__title"}>
+            <h1 className={"tasks__title"} style={{color: activeList.color.hex}}>
                 {activeList.name}
                 <img className={'tasks__edit-title'} src={editIcon} alt="" onClick={editTitle}/>
             </h1>
@@ -47,14 +47,14 @@ const Tasks = ({activeList, onEditTitle, addTask}) => {
                                     </label>
                                 </div>
                                 <span className={'tasks__item-text'}>
-                                            <input type="text" onChange={e => e.preventDefault()} value={task.text}/>
-                                        </span>
+                                    <input type="text" onChange={e => e.preventDefault()} value={task.text}/>
+                                </span>
                             </div>
                         ))
                     }
                 </div>
                 :
-                <h2 className={'tasks__empty'}>Задачи отсутствуют</h2>
+                !withoutEmpty && <h2 className={'tasks__empty'}>Задачи отсутствуют</h2>
             }
 
             <AddTaskForm addTask={addTask} activeListId={activeList.id}/>

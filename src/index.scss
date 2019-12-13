@@ -36,6 +36,8 @@ body {
   &__tasks{
     padding: 55px;
     flex: 1;
+
+    overflow: auto;
   }
 }
 
