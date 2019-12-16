@@ -7,7 +7,7 @@ import './Tasks.scss'
 import Task from "./Task";
 
 
-const Tasks = ({activeList, onEditTitle, addTask, withoutEmpty}) => {
+const Tasks = ({activeList, onEditTitle, addTask, withoutEmpty, removeTask, onEditTask, onCompletedTask}) => {
 
     const editTitle = () => {
         const newTitle = window.prompt('Название списка ', activeList.name);
@@ -22,6 +22,7 @@ const Tasks = ({activeList, onEditTitle, addTask, withoutEmpty}) => {
         }
     };
 
+
     return (
         <div className="tasks">
             <h1 className={"tasks__title"} style={{color: activeList.color.hex}}>
@@ -33,7 +34,7 @@ const Tasks = ({activeList, onEditTitle, addTask, withoutEmpty}) => {
                 <div className="tasks__items">
                     {
                         activeList.tasks.map(task => (
-                           <Task key={task.id} {...task}/>
+                           <Task key={task.id} list={activeList} onCompleted={onCompletedTask} onEdit={onEditTask} onRemove={removeTask} task={task}/>
                         ))
                     }
                 </div>
@@ -41,7 +42,7 @@ const Tasks = ({activeList, onEditTitle, addTask, withoutEmpty}) => {
                 !withoutEmpty && <h2 className={'tasks__empty'}>Задачи отсутствуют</h2>
             }
 
-            <AddTaskForm addTask={addTask} activeListId={activeList.id}/>
+            <AddTaskForm key={activeList.id} addTask={addTask} activeListId={activeList.id}/>
         </div>
     )
 };

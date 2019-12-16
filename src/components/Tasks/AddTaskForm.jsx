@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 import addIcon from "../../assets/img/add.svg";
 import axios from "axios";
@@ -7,10 +7,6 @@ const AddTaskForm = ({addTask, activeListId}) => {
     const [visibleInput, setVisibleInput] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-
-    useEffect(()=>{
-        setVisibleInput(false);
-    }, [activeListId]);
 
     const addTaskItem = () => {
         if (!!inputValue.length) {
