@@ -1,10 +1,11 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 import AddTaskForm from "./AddTaskForm";
+import Task from "./Task";
 
 import editIcon from '../../assets/img/edit.svg';
 import './Tasks.scss'
-import Task from "./Task";
-import {Link} from "react-router-dom";
+
 
 const Tasks = ({activeList, onEditTitle, addTask, withoutEmpty, removeTask, onEditTask, onCompletedTask}) => {
         return (

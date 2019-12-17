@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
+import {tasksAPI} from "../../api";
 
 import addIcon from "../../assets/img/add.svg";
-import {tasksAPI} from "../../api";
 
 const AddTaskForm = ({addTask, activeListId}) => {
     const [visibleInput, setVisibleInput] = useState(false);
@@ -10,7 +10,6 @@ const AddTaskForm = ({addTask, activeListId}) => {
 
     const addTaskItem = () => {
         if (!!inputValue.length) {
-
             setIsLoading(true);
 
             const task = {
@@ -26,7 +25,6 @@ const AddTaskForm = ({addTask, activeListId}) => {
                 setIsLoading(false);
             })
         }
-
     };
 
     const closeInput = () => {
@@ -36,36 +34,32 @@ const AddTaskForm = ({addTask, activeListId}) => {
 
     return (
         <div className="tasks__form">
-
-            {
-                visibleInput ?
-
-                    <div className="tasks__form-group">
-                        <input type="text"
-                               placeholder={'Текст задачи'}
-                               className={'field'}
-                               value={inputValue}
-                               onChange={(event) => {
-                                   setInputValue(event.target.value)
-                               }}/>
-                        <div className="tasks__button-wrp">
-                            <button disabled={isLoading} type={'button'} className={'button'}
-                                    onClick={addTaskItem}>{isLoading ? 'Добавление...' : 'Добавить задачу'}</button>
-                            <button disabled={isLoading} type={'button'} className={'button button--gray'}
-                                    onClick={closeInput}>{'Отменить'}</button>
-                        </div>
+            {visibleInput ?
+                <div className="tasks__form-group">
+                    <input type="text"
+                           placeholder={'Текст задачи'}
+                           className={'field'}
+                           value={inputValue}
+                           onChange={(event) => {
+                               setInputValue(event.target.value)
+                           }}/>
+                    <div className="tasks__button-wrp">
+                        <button disabled={isLoading} type={'button'} className={'button'}
+                                onClick={addTaskItem}>{isLoading ? 'Добавление...' : 'Добавить задачу'}</button>
+                        <button disabled={isLoading} type={'button'} className={'button button--gray'}
+                                onClick={closeInput}>{'Отменить'}</button>
                     </div>
+                </div>
 
-                    :
+                :
 
-                    <div className="tasks__form-new" onClick={() => {
-                        setVisibleInput(true)
-                    }}>
-                        <img src={addIcon} alt=""/>
-                        <span>Новая задача</span>
-                    </div>
+                <div className="tasks__form-new" onClick={() => {
+                    setVisibleInput(true)
+                }}>
+                    <img src={addIcon} alt=""/>
+                    <span>Новая задача</span>
+                </div>
             }
-
         </div>
     )
 };

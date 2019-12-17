@@ -39,6 +39,10 @@ body {
 
     overflow: auto;
   }
+
+  &__hamburger{
+    display: none;
+  }
 }
 
 .field{
@@ -93,5 +97,81 @@ body {
     &:active{
       background: #eaecee;
     }
+  }
+}
+
+@media screen and (max-width: 991px){
+  .todo {
+    width: 100vw;
+    height: 100vh;
+  }
+}
+
+@media screen and (max-width: 767px){
+  .todo{
+    overflow: hidden;
+    border: 0;
+
+    &__tasks{
+      width: calc(100vw - 55px);
+      position: relative;
+      transition: width .3s;
+
+      padding: 20px;
+    }
+
+    &__hamburger{
+      display: block;
+      width: 25px;
+      cursor: pointer;
+      margin-bottom: 30px;
+    }
+
+    &.isOpened{
+      .todo{
+        &__sidebar{
+          width: 300px;
+
+          .list{
+            display: block;
+          }
+        }
+
+        &__tasks{
+          overflow: hidden;
+          position: relative;
+          min-width: calc(100vw - 50px);
+
+          &:before{
+            content: '';
+            display: block;
+            position: absolute;
+            background: rgba(0,0,0, .5);
+            left: 0;
+            top: 0;
+            height: 100%;
+
+            width: 100%;
+          }
+        }
+      }
+
+    }
+
+    &__sidebar{
+      border: 0;
+      position: relative;
+      width: 55px;
+      padding: 30px 15px;
+      transition: width .3s;
+      overflow-y: auto;
+      flex-shrink: 0;
+
+      .list{
+        display: none;
+      }
+
+    }
+
   }
 }
