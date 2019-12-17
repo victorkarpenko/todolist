@@ -2,7 +2,7 @@
   "lists": [
     {
       "id": 1,
-      "name": "Продажи и что-то",
+      "name": "Продажи и что-то ",
       "colorId": 5
     },
     {
@@ -59,7 +59,7 @@
     {
       "listId": 1,
       "text": "dgfhgfhgfhgfhfg",
-      "completed": false,
+      "completed": true,
       "id": 6
     },
     {
@@ -103,6 +103,12 @@
       "text": "new king book",
       "completed": true,
       "id": 22
+    },
+    {
+      "listId": 1,
+      "text": "new task",
+      "completed": false,
+      "id": 23
     }
   ],
   "colors": [

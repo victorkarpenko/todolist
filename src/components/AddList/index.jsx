@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Badge} from '../../components';
-import axios from 'axios';
 
 import './AddList.scss'
 import addIcon from "../../assets/img/add.svg";
 import closeIcon from '../../assets/img/close.svg';
+import {listsAPI} from "../../api";
 
 
 const listItem = {
@@ -31,21 +31,18 @@ const AddButtonList = ({addListItem, colors}) => {
         setActiveColor(colors[0].id);
     };
 
-    const addList = (e) => {
-        e.preventDefault();
+    const addList = () => {
+        if (inputValue) {
+            setIsLoading(true);
+            const color = colors.find(color => color.id === activeColor);
 
-        if (!inputValue) {
-            return;
+            listsAPI.addList({name: inputValue, colorId:activeColor}).then(data => {
+                addListItem({...data, color});
+                onClose();
+            }).finally(()=>{
+                setIsLoading(false);
+            });
         }
-
-        setIsLoading(true);
-        const color = colors.find(color => color.id === activeColor);
-        axios.post('http://localhost:3001/lists', {name: inputValue, colorId:activeColor}).then(({data}) => {
-            addListItem({...data, color});
-            onClose();
-        }).finally(()=>{
-            setIsLoading(false);
-        });
     };
 
     return (

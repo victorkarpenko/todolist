@@ -1,27 +1,23 @@
 import React, {useState, useEffect} from 'react';
 import {AddList, Tasks, List} from './components';
-import axios from 'axios';
 import {BrowserRouter, Route, useHistory} from "react-router-dom";
+import {appAPI, listsAPI, tasksAPI} from "./api";
 
 import listIcon from "./assets/img/list.svg";
 
 const App = () => {
     const [lists, setLists] = useState(null);
     const [colors, setColors] = useState(null);
-    const [activeItem, setActiveItem] = useState();
+    const [activeItem, setActiveItem] = useState(null);
 
     let history = useHistory();
 
-    const getTasks = () => {
-        return axios.get('http://localhost:3001/lists?_expand=color&_embed=tasks').then(({data}) => {
-            setLists(data);
-            return data;
-        });
-    };
-
     useEffect(() => {
-        getTasks();
-        axios.get('http://localhost:3001/colors').then(({data}) => {
+        listsAPI.getLists().then((data) => {
+            setLists(data)
+        });
+
+        appAPI.getColors().then((data) => {
             setColors(data);
         });
     }, []);
@@ -36,24 +32,32 @@ const App = () => {
 
     const removeItem = (itemId) => {
         const newList = lists.filter(i => i.id !== itemId);
-        axios.delete('http://localhost:3001/lists/' + itemId).then(({data}) => {
-            setLists(newList);
-        });
+
+        setLists(newList);
+        listsAPI.deleteList(itemId);
     };
 
     const addListItem = (newItem) => {
         setLists([...lists, {...newItem, tasks:[]}]);
     };
 
-    const onEditListTitle = (id, title) => {
-        const newLists = lists.map(l=>{
-            if(l.id === id){
-                l.name = title;
-            }
-            return l;
-        });
+    const onEditListTitle = (list) => {
 
-        setLists(newLists);
+        const newTitle = window.prompt('Название списка ', list.name);
+        if (newTitle) {
+
+            const newLists = lists.map(l=>{
+                if(l.id === list.id){
+                    l.name = newTitle;
+                }
+                return l;
+            });
+
+            setLists(newLists);
+
+            listsAPI.updateList(list.id, {name: newTitle});
+        }
+
     };
 
     const onRemoveTask = task => {
@@ -70,9 +74,7 @@ const App = () => {
 
             setLists(newList);
 
-            axios.delete('http://localhost:3001/tasks/' + task.id).catch(() => {
-                alert('error');
-            });
+            tasksAPI.deleteTask(task.id);
         }
     };
 
@@ -107,12 +109,7 @@ const App = () => {
 
             setLists(newLists);
 
-            axios.patch(`http://localhost:3001/tasks/${task.id}`, {
-                text: newText
-            }).catch(() => {
-                    alert('Не удалось обновить название задачи');
-                }
-            )
+            tasksAPI.updateTask(task.id, {text: newText});
         }
     };
 
@@ -134,19 +131,22 @@ const App = () => {
 
         setLists(newLists);
 
-        axios.patch(`http://localhost:3001/tasks/${task.id}`, {
-            completed: newCompletedValue
-        })
+        tasksAPI.updateTask(task.id, {completed: newCompletedValue});
     };
 
     return (
         <div className="todo">
             <div className="todo__sidebar">
-                <List items={[{ active: history.location.pathname === '/', icon: listIcon,name: "Все задачи"}]} onClickItem={() => {history.push(`/`)}} />
+                <List items={[{ active: history.location.pathname === '/', icon: listIcon,name: "Все задачи"}]}
+                      onClickItem={() => {history.push(`/`)}} />
 
-                {lists ? <List onClickItem={(item) => {
-                    history.push(`/lists/${item.id}`);
-                }} activeItem={activeItem} removeItem={removeItem} items={lists} isRemovable/> : 'Waiting...'}
+                {lists ?
+                    <List onClickItem={(item) => {history.push(`/lists/${item.id}`);}}
+                          activeItem={activeItem}
+                          removeItem={removeItem}
+                          items={lists}
+                          isRemovable/>
+                      : 'Waiting...'}
 
                 <AddList addListItem={addListItem} colors={colors}/>
             </div>
@@ -155,12 +155,24 @@ const App = () => {
                 <Route exact path={"/"}>
                     {
                         lists && lists.map(list => (
-                            <Tasks key={list.id} onCompletedTask={onCompletedTask} removeTask={onRemoveTask} onEditTask={onEditTask} onEditTitle={onEditListTitle} addTask={onAddTaskToList} activeList={list} withoutEmpty={true}/>
+                            <Tasks key={list.id}
+                                   onCompletedTask={onCompletedTask}
+                                   removeTask={onRemoveTask}
+                                   onEditTask={onEditTask}
+                                   onEditTitle={onEditListTitle}
+                                   addTask={onAddTaskToList}
+                                   activeList={list}
+                                   withoutEmpty={true}/>
                         ))
                     }
                 </Route>
                 <Route path={"/lists/:id"}>
-                    { activeItem && <Tasks onCompletedTask={onCompletedTask} removeTask={onRemoveTask} onEditTask={onEditTask} onEditTitle={onEditListTitle} addTask={onAddTaskToList} activeList={activeItem}/> }
+                    { activeItem && <Tasks onCompletedTask={onCompletedTask}
+                                           removeTask={onRemoveTask}
+                                           onEditTask={onEditTask}
+                                           onEditTitle={onEditListTitle}
+                                           addTask={onAddTaskToList}
+                                           activeList={activeItem}/> }
                 </Route>
             </div>
         </div>

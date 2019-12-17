@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 import addIcon from "../../assets/img/add.svg";
-import axios from "axios";
+import {tasksAPI} from "../../api";
 
 const AddTaskForm = ({addTask, activeListId}) => {
     const [visibleInput, setVisibleInput] = useState(false);
@@ -19,8 +19,8 @@ const AddTaskForm = ({addTask, activeListId}) => {
                 completed: false
             };
 
-            axios.post(`http://localhost:3001/tasks`, task).then((data) => {
-                addTask(data.data);
+            tasksAPI.addTask(task).then(data => {
+                addTask(data);
                 closeInput();
             }).finally(() => {
                 setIsLoading(false);
