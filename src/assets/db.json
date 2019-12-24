@@ -2,7 +2,7 @@
   "lists": [
     {
       "id": 1,
-      "name": "Продажи и что-то ",
+      "name": "Продажи",
       "colorId": 5
     },
     {
@@ -12,7 +12,7 @@
     },
     {
       "id": 3,
-      "name": "Фильмы и сериалы",
+      "name": "Сериалы",
       "colorId": 3
     },
     {
@@ -24,11 +24,6 @@
       "name": "Личное",
       "colorId": 1,
       "id": 5
-    },
-    {
-      "name": "MyTasks",
-      "colorId": 6,
-      "id": 6
     }
   ],
   "tasks": [
@@ -57,12 +52,6 @@
       "completed": false
     },
     {
-      "listId": 1,
-      "text": "dgfhgfhgfhgfhfg",
-      "completed": true,
-      "id": 6
-    },
-    {
       "listId": 3,
       "text": "new film",
       "completed": false,
@@ -76,27 +65,9 @@
     },
     {
       "listId": 5,
-      "text": "xzcxzcz",
+      "text": "1",
       "completed": false,
       "id": 12
-    },
-    {
-      "listId": 1,
-      "text": "dfgdfg",
-      "completed": true,
-      "id": 16
-    },
-    {
-      "listId": 3,
-      "text": "dfgdfg",
-      "completed": false,
-      "id": 17
-    },
-    {
-      "listId": 6,
-      "text": "Audits",
-      "completed": false,
-      "id": 21
     },
     {
       "listId": 4,
@@ -109,12 +80,6 @@
       "text": "new task",
       "completed": false,
       "id": 23
-    },
-    {
-      "listId": 3,
-      "text": "sdfdsfds",
-      "completed": false,
-      "id": 24
     }
   ],
   "colors": [
